@@ -1,1 +1,39 @@
-/* You can add global styles to this file, and also import other style files */
+/* styles.css o styles.scss */
+body {
+  background: #ffe259; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #ffa751,
+    #ffe259
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #ffa751,
+    #ffe259
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  margin: 0; /* Elimina márgenes del body */
+  height: 100vh; /* Asegura que el body ocupe toda la altura */
+  display: flex; /* Habilitar Flexbox para centrar el contenido */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+
+  font-family: "Poppins", serif !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+}
+.card {
+  width: 95%; /* La tarjeta ocupa el 95% del ancho de la pantalla */
+  max-width: 1200px; /* Limita el tamaño máximo de la tarjeta a 1200px */
+  height: 95%; /* La tarjeta ocupa el 80% de la altura de la pantalla */
+  max-height: 800px; /* Limita la altura máxima de la tarjeta */
+  margin: 20px; /* Márgenes en todos los lados */
+  padding: 40px; /* Aumenta el relleno para hacer la tarjeta más espaciosa */
+  border-radius: 12px; /* Bordes redondeados */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada para darle profundidad */
+}
+
+.card-body {
+  padding: 20px; /* Espaciado interno del contenido de la tarjeta */
+  overflow-y: auto; /* Permite el desplazamiento vertical si el contenido se desborda */
+}
