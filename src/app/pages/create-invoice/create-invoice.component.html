@@ -2,13 +2,32 @@
   <h2>Crear Factura</h2>
 
   <!-- Datos del cliente -->
-  <div class="mb-4">
-    <label>Nombre del cliente</label>
-    <input [(ngModel)]="header.clientName" type="text" class="form-control" />
-    <label>Número de documento</label>
-    <input [(ngModel)]="header.documentNumber" type="text" class="form-control" />
-    <label>Dirección</label>
-    <input [(ngModel)]="header.address" type="text" class="form-control" />
+  <div [formGroup]="invoiceForm">
+    <div class="mb-4" formGroupName="header">
+      <label>Nombre del cliente</label>
+      <input
+        formControlName="clientName"
+        type="text"
+        class="form-control"
+        placeholder="Nombre del cliente"
+      />
+      <br />
+      <label>Número de documento</label>
+      <input
+        formControlName="documentNumber"
+        type="text"
+        class="form-control"
+        placeholder="Número de documento"
+      />
+      <br />
+      <label>Dirección</label>
+      <input
+        formControlName="address"
+        type="text"
+        class="form-control"
+        placeholder="Dirección"
+      />
+    </div>
   </div>
 
   <!-- Productos -->
@@ -49,13 +68,13 @@
       </div>
       <div class="col">
         <select [(ngModel)]="newDetail.iva" class="form-select">
-          <option *ngFor="let option of ivaOptions" [value]="option">{{ option }}%</option>
+          <option *ngFor="let option of ivaOptions" [value]="option">
+            {{ option }}%
+          </option>
         </select>
       </div>
       <div class="col">
-        <button (click)="addDetail(newDetail)" class="btn btn-success">
-          Agregar
-        </button>
+        <button (click)="addDetail()" class="btn btn-success">Agregar</button>
       </div>
     </div>
   </div>
@@ -75,16 +94,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let detail of details">
-        <td>{{ detail.productNumber }}</td>
-        <td>{{ detail.description }}</td>
-        <td>{{ detail.quantity }}</td>
-        <td>{{ detail.unitPrice | currency:'USD' }}</td>
-        <td>{{ detail.iva }}%</td>
-        <td>{{ detail.ivaValue | currency:'USD' }}</td>
-        <td>{{ detail.total | currency:'USD' }}</td>
+      <tr *ngFor="let detail of details.controls; let i = index">
+        <td>{{ detail.get("productNumber")?.value }}</td>
+        <td>{{ detail.get("description")?.value }}</td>
+        <td>{{ detail.get("quantity")?.value }}</td>
+        <td>{{ detail.get("unitPrice")?.value | currency : "USD" }}</td>
+        <td>{{ detail.get("iva")?.value }}%</td>
+        <td>{{ detail.get("ivaValue")?.value | currency : "USD" }}</td>
+        <td>{{ detail.get("total")?.value | currency : "USD" }}</td>
         <td>
-          <button (click)="removeDetail(detail)" class="btn btn-danger btn-sm">
+          <button (click)="removeDetail(i)" class="btn btn-danger btn-sm">
             Eliminar
           </button>
         </td>
@@ -95,10 +114,12 @@
   <!-- Totales -->
   <div class="mt-4">
     <h4>Totales:</h4>
-    <p>Total sin IVA: {{ totalSnIva | currency:'COP ' }}</p>
-    <p>Total IVA: {{ totalIva | currency:'COP ' }}</p>
-    <p>Total con IVA: {{ totalCnIva | currency:'COP ' }}</p>
+    <p>Total sin IVA: {{ totalSnIva | currency : "COP " }}</p>
+    <p>Total IVA: {{ totalIva | currency : "COP " }}</p>
+    <p>Total con IVA: {{ totalCnIva | currency : "COP " }}</p>
   </div>
 
-  <button (click)="saveInvoice()" class="btn btn-primary">Guardar Factura</button>
+  <button (click)="saveInvoice()" class="btn btn-primary">
+    Guardar Factura
+  </button>
 </div>
